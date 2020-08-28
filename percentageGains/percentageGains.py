@@ -25,8 +25,6 @@ class PercentageGains:
         :param self: Passes authenticated session in parameter
         """
 
-        print("Here")
-
         with open('symbols', 'r', newline='') as symbolsFile:
             symbols = symbolsFile.read().splitlines()
 
@@ -50,14 +48,14 @@ class PercentageGains:
         while (len(symbols)>0):
            joined_string = ",".join(symbols[0:25])
            symbols = symbols[25:]
-           print(joined_string)
+           #print(joined_string)
         
            #        symbols = input("\nPlease enter Stock Symbol: ")
 
            # URL for the API endpoint
            url = self.base_url + "/v1/market/quote/" + joined_string + ".json"
 
-           print(url)
+           #print(url)
 
            # Make API call for GET request
            response = self.session.get(url)
@@ -69,7 +67,7 @@ class PercentageGains:
                logger.debug("Response Body: %s", json.dumps(parsed, indent=4, sort_keys=True))
 
                # Handle and parse response
-               print("")
+               #print("")
                data = response.json()
                if data is not None and "QuoteResponse" in data and "QuoteData" in data["QuoteResponse"]:
                    for quote in data["QuoteResponse"]["QuoteData"]:
@@ -115,4 +113,6 @@ class PercentageGains:
            else:
                logger.debug("Response Body: %s", response)
                print("Error: Quote API service error")
+        print() 
         print(sorted(percentageGains.items(), key=lambda x: x[1], reverse=True))
+        print()
