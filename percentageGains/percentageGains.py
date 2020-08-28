@@ -114,5 +114,6 @@ class PercentageGains:
                logger.debug("Response Body: %s", response)
                print("Error: Quote API service error")
         print() 
-        print(sorted(percentageGains.items(), key=lambda x: x[1], reverse=True))
+        sorted_pg = sorted(percentageGains.items(), key=lambda x: x[1], reverse=False)
+        print(*sorted_pg, sep = "\n")
         print()
