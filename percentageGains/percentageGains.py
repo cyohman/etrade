@@ -102,7 +102,7 @@ class PercentageGains:
                        #    print("Volume: " + str('{:,}'.format(quote["All"]["totalVolume"])))
                    #print(percentageGains)
                    #print(sorted(percentageGains))
-                   print(sorted(percentageGains.items(), key=lambda x: x[1], reverse=True))
+                   #print(sorted(percentageGains.items(), key=lambda x: x[1], reverse=True))
                else:
                # Handle errors
                    if data is not None and 'QuoteResponse' in data and 'Messages' in data["QuoteResponse"] \
@@ -115,3 +115,4 @@ class PercentageGains:
            else:
                logger.debug("Response Body: %s", response)
                print("Error: Quote API service error")
+        print(sorted(percentageGains.items(), key=lambda x: x[1], reverse=True))
