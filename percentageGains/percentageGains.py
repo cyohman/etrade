@@ -52,7 +52,7 @@ class PercentageGains:
            symbols = symbols[25:]
            print(joined_string)
         
-#        symbols = input("\nPlease enter Stock Symbol: ")
+           #        symbols = input("\nPlease enter Stock Symbol: ")
 
            # URL for the API endpoint
            url = self.base_url + "/v1/market/quote/" + joined_string + ".json"
@@ -75,16 +75,16 @@ class PercentageGains:
                    for quote in data["QuoteResponse"]["QuoteData"]:
                        #if quote is not None and "dateTime" in quote:
                        #    print("Date Time: " + quote["dateTime"])
-                       if quote is not None and "Product" in quote and "symbol" in quote["Product"]:
-                           print("Symbol: " + quote["Product"]["symbol"])
+                       #if quote is not None and "Product" in quote and "symbol" in quote["Product"]:
+                       #    print("Symbol: " + quote["Product"]["symbol"])
                        #if quote is not None and "Product" in quote and "securityType" in quote["Product"]:
                        #    print("Security Type: " + quote["Product"]["securityType"])
                        #if quote is not None and "All" in quote and "lastTrade" in quote["All"]:
                        #    print("Last Price: " + str(quote["All"]["lastTrade"]))
                        if quote is not None and "All" in quote and "changeClose" in quote["All"] \
                            and "changeClosePercentage" in quote["All"]:
-                           print("Today's Change: " + str('{:,.3f}'.format(quote["All"]["changeClose"])) + " (" +
-                              str(quote["All"]["changeClosePercentage"]) + "%)")
+                       #    print("Today's Change: " + str('{:,.3f}'.format(quote["All"]["changeClose"])) + " (" +
+                       #       str(quote["All"]["changeClosePercentage"]) + "%)")
                            percentageGains[quote["Product"]["symbol"]] = quote["All"]["changeClosePercentage"]   
                        #if quote is not None and "All" in quote and "open" in quote["All"]:
                        #    print("Open: " + str('{:,.2f}'.format(quote["All"]["open"])))
@@ -100,8 +100,8 @@ class PercentageGains:
                        #    print("Day's Range: " + str(quote["All"]["low"]) + "-" + str(quote["All"]["high"]))
                        #if quote is not None and "All" in quote and "totalVolume" in quote["All"]:
                        #    print("Volume: " + str('{:,}'.format(quote["All"]["totalVolume"])))
-                   print(percentageGains)
-                   print(sorted(percentageGains))
+                   #print(percentageGains)
+                   #print(sorted(percentageGains))
                    print(sorted(percentageGains.items(), key=lambda x: x[1], reverse=True))
                else:
                # Handle errors
