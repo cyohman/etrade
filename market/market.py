@@ -31,7 +31,7 @@ class Market:
         print(url)
 
         # Make API call for GET request
-        response = self.session.get(url)
+        response = self.session.get(url) # , params={'detailFlag': 'FUNDAMENTAL'})
         logger.debug("Request Header: %s", response.request.headers)
 
         if response is not None and response.status_code == 200:
@@ -42,6 +42,9 @@ class Market:
             # Handle and parse response
             print("")
             data = response.json()
+
+            print(data)
+
             if data is not None and "QuoteResponse" in data and "QuoteData" in data["QuoteResponse"]:
                 for quote in data["QuoteResponse"]["QuoteData"]:
                     if quote is not None and "dateTime" in quote:
@@ -70,6 +73,8 @@ class Market:
                         print("Day's Range: " + str(quote["All"]["low"]) + "-" + str(quote["All"]["high"]))
                     if quote is not None and "All" in quote and "totalVolume" in quote["All"]:
                         print("Volume: " + str('{:,}'.format(quote["All"]["totalVolume"])))
+                    if quote is not None and "All" in quote and "lastPrice" in quote["All"]["ExtendedHourQuoteDetail"]:
+                        print("Extended Hour Price: "+ str(quote["All"]["ExtendedHourQuoteDetail"]["lastPrice"]))
             else:
                 # Handle errors
                 if data is not None and 'QuoteResponse' in data and 'Messages' in data["QuoteResponse"] \
@@ -82,3 +87,5 @@ class Market:
         else:
             logger.debug("Response Body: %s", response)
             print("Error: Quote API service error")
+            print(response)
+            print(response.json())
