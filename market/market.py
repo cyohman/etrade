@@ -1,6 +1,7 @@
 import json
 import logging
 from logging.handlers import RotatingFileHandler
+from datetime import datetime, time
 
 # logger settings
 logger = logging.getLogger('my_logger')
@@ -29,9 +30,13 @@ class Market:
         url = self.base_url + "/v1/market/quote/" + symbols + ".json"
 
         print(url)
-
+        
+        now = datetime.now()
+        current_time_str  = now.strftime("%H:%M:%S")
+        current_time = now.time()
+        
         # Make API call for GET request
-        response = self.session.get(url) # , params={'detailFlag': 'FUNDAMENTAL'})
+        response = self.session.get(url) #, params={'detailFlag': 'INTRADAY'})
         logger.debug("Request Header: %s", response.request.headers)
 
         if response is not None and response.status_code == 200:
@@ -51,8 +56,8 @@ class Market:
                         print("Date Time: " + quote["dateTime"])
                     if quote is not None and "Product" in quote and "symbol" in quote["Product"]:
                         print("Symbol: " + quote["Product"]["symbol"])
-                    if quote is not None and "Product" in quote and "securityType" in quote["Product"]:
-                        print("Security Type: " + quote["Product"]["securityType"])
+                    #if quote is not None and "Product" in quote and "securityType" in quote["Product"]:
+                    #    print("Security Type: " + quote["Product"]["securityType"])
                     if quote is not None and "All" in quote and "lastTrade" in quote["All"]:
                         print("Last Price: " + str(quote["All"]["lastTrade"]))
                     if quote is not None and "All" in quote and "changeClose" in quote["All"] \
